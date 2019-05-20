@@ -24,8 +24,15 @@ def BFS(graph, s):
         print(step, [graph.attributes[v]['name'] for v in q])
         print(step, [graph.attributes[v]['d'] for v in q])
         graph.draw('{}'.format(step))
+        v = q.popleft()
+        for w in graph.adj[v]:
+            if graph.attributes[w]['color'] == 'white':
+                q.append(w)
+                graph.attributes[w]['d'] = int(graph.attributes[v]['d'])+1
+                graph.attributes[w]['pi']=v
+                graph.attributes[w]['color'] = 'gray'
+        graph.attributes[v]['color'] = 'black'
 
-        raise NotImplementedError('Реализуйте алгоритм здесь')
 
 
 def main():
